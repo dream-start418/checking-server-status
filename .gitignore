@@ -1,0 +1,7 @@
+./venv/
+urls.txt
+status_log.db
+
+build/*
+dist/*
+__pycache__/*

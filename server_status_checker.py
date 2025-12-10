@@ -179,12 +179,30 @@ class ServerStatusChecker:
             message = f"Server failed: {url}"
             if error_message:
                 message += f"\nError: {error_message}"
-            self.notifier.show_toast(
-                title,
-                message,
-                duration=10,
-                threaded=True
-            )
+            
+            try:
+                # Try to send notification
+                self.notifier.show_toast(
+                    title,
+                    message,
+                    duration=10,
+                    threaded=True
+                )
+            except Exception as e:
+                # If notification fails in bundled exe, try alternative method
+                try:
+                    # Try using win32api directly as fallback
+                    import win32api
+                    import win32con
+                    win32api.MessageBox(
+                        0,
+                        message,
+                        title,
+                        win32con.MB_OK | win32con.MB_ICONWARNING
+                    )
+                except:
+                    # If all else fails, just log it (silent failure)
+                    pass
     
     def check_all_urls(self):
         """Check all URLs and log results."""

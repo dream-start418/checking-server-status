@@ -181,6 +181,23 @@ You can now distribute this `.exe` file to anyone - they don't need Python insta
 
 **Note:** The first time you run the `.exe`, Windows Defender might show a warning. This is normal for unsigned executables. You can click "More info" and then "Run anyway".
 
+### Windows Notifications in .exe File
+
+The build script now properly includes all pywin32 dependencies needed for notifications. If notifications don't work in the .exe:
+
+1. **Check Windows Notification Settings:**
+   - Go to: Settings > System > Notifications & actions
+   - Make sure notifications are enabled
+   - Look for "ServerStatusChecker" in the list and enable it
+
+2. **First Run:**
+   - Windows may ask for permission to show notifications on first run
+   - Click "Allow" when prompted
+
+3. **Fallback:**
+   - If toast notifications fail, the app will show a MessageBox as a fallback
+   - This ensures you're always notified of server failures
+
 ## File Structure
 
 - `server_status_checker.py` - Core checker module (used by both CLI and GUI)
